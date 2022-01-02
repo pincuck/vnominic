@@ -1,5 +1,4 @@
 const fetch = require("node-fetch");
-const readlineSync = require("readline-sync");
 const cheerio = require("cheerio");
 const randstr = (length) =>
   new Promise((resolve, reject) => {
@@ -88,7 +87,7 @@ const generateIndoName = () =>
         reject(err);
       });
   });
-const getRegist = (email, nama, IPcon) =>
+const getRegist = (email, nama, IPcon,reff) =>
   new Promise((resolve, reject) => {
     fetch("https://id.vscore.vn/api-v1/accounts/register/4", {
       method: "POST",
@@ -111,7 +110,7 @@ const getRegist = (email, nama, IPcon) =>
         userName: email,
         password: "Kaserinas123@",
         rePassword: "Kaserinas123@",
-        fromReferralId: "2II9LVLV",
+        fromReferralId: reff,
         fullName: nama,
       }),
     })
@@ -158,6 +157,7 @@ const Otp = (token, otpa, IPcon) =>
 (async () => {
   while (true) {
     try {
+      const reff = "";
       const domain = "honey.cloudns.ph";
       const indoName = await generateIndoName();
       const rand = await randstr(4);
@@ -170,7 +170,7 @@ const Otp = (token, otpa, IPcon) =>
       console.log("[+] Mendaftar dengan email " + email);
       const IPcon = await IP();
       console.log("[=] IP " + IPcon);
-      const Prosesregist = await getRegist(email, name, IPcon);
+      const Prosesregist = await getRegist(email, name, IPcon, reff);
       if (Prosesregist.success === true) {
         const tokenreg = Prosesregist.data.token;
         let linkConfirm;
