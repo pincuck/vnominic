@@ -157,8 +157,8 @@ const Otp = (token, otpa, IPcon) =>
 (async () => {
   while (true) {
     try {
-      const reff = "";
-      const domain = "honey.cloudns.ph";
+      const reff = "2II9LVLV"
+      const domain = "smilevxer.com";
       const indoName = await generateIndoName();
       const rand = await randstr(4);
       const { result } = indoName;
@@ -170,19 +170,22 @@ const Otp = (token, otpa, IPcon) =>
       console.log("[+] Mendaftar dengan email " + email);
       const IPcon = await IP();
       console.log("[=] IP " + IPcon);
-      const Prosesregist = await getRegist(email, name, IPcon, reff);
+      const Prosesregist = await getRegist(email, name, IPcon);
       if (Prosesregist.success === true) {
         const tokenreg = Prosesregist.data.token;
-        let linkConfirm;
+        // let linkConfirm;
+        let count = 0;
         do {
           linkConfirm = await functionGetLink(
             email,
             email.split("@")[0],
             email.split("@")[1]
           );
-        } while (!linkConfirm);
+          count ++;
+          // console.log(count)
+        } while (count < 10);
         const otp = linkConfirm;
-        const validateOtp = await Otp(tokenreg, otp, IPcon);
+        const validateOtp = await Otp(tokenreg, otp, IPcon,reff);
         if (validateOtp.success === true) {
           console.log("[+] Berhasil mendaftar");
         } else {
