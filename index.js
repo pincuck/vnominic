@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+const readlineSync = require("readline-sync");
 const cheerio = require("cheerio");
 const randstr = (length) =>
   new Promise((resolve, reject) => {
@@ -170,7 +171,7 @@ const Otp = (token, otpa, IPcon) =>
       console.log("[+] Mendaftar dengan email " + email);
       const IPcon = await IP();
       console.log("[=] IP " + IPcon);
-      const Prosesregist = await getRegist(email, name, IPcon);
+      const Prosesregist = await getRegist(email, name, IPcon, reff);
       if (Prosesregist.success === true) {
         const tokenreg = Prosesregist.data.token;
         // let linkConfirm;
@@ -185,7 +186,7 @@ const Otp = (token, otpa, IPcon) =>
           // console.log(count)
         } while (count < 10);
         const otp = linkConfirm;
-        const validateOtp = await Otp(tokenreg, otp, IPcon,reff);
+        const validateOtp = await Otp(tokenreg, otp, IPcon);
         if (validateOtp.success === true) {
           console.log("[+] Berhasil mendaftar");
         } else {
