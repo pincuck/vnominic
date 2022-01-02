@@ -158,7 +158,7 @@ const Otp = (token, otpa, IPcon) =>
 (async () => {
   while (true) {
     try {
-      const reff = "2II9LVLV"
+      const reff = "CO8YHNQI"
       const domain = "smilevxer.com";
       const indoName = await generateIndoName();
       const rand = await randstr(4);
